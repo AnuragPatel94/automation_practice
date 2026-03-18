@@ -1,6 +1,7 @@
 package automation_practice_Day1;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -11,42 +12,41 @@ public class range_datepicker {
 
 	public static void main(String[] args) {
 		
-		// Navigate to page
+// Navigate to page
 				WebDriver driver=new ChromeDriver();
 				driver.manage().window().maximize();
 				driver.get("https://testautomationpractice.blogspot.com/");
 				
-				public static void selectDate(WebDriver driver, String expMonth, String expYear, String expDate) {
-
-				    driver.findElement(By.id("datepicker")).click();
-
-				    while (true) {
-				        String month = driver.findElement(By.className("ui-datepicker-month")).getText();
-				        String year = driver.findElement(By.className("ui-datepicker-year")).getText();
-
-				        if (month.equals(expMonth) && year.equals(expYear)) {
-				            break;
-				        }
-
-				        // Decide direction (important for range handling)
-				        int currentYear = Integer.parseInt(year);
-				        int targetYear = Integer.parseInt(expYear);
-
-				        if (currentYear > targetYear) {
-				            // Go backward
-				            driver.findElement(By.xpath("//span[@class='ui-icon ui-icon-circle-triangle-w']")).click();
-				        } else {
-				            // Go forward
-				            driver.findElement(By.xpath("//span[@class='ui-icon ui-icon-circle-triangle-e']")).click();
-				        }
-				    }
-
-				    List<WebElement> dates = driver.findElements(By.xpath("//a[@class='ui-state-default']"));
-
-				    for (WebElement dt : dates) {
-				        if (dt.getText().equals(expDate)) {
-				            dt.click();
-				            break;
-				        }}}}
-				    
+//switch to frame
+				//driver.switchTo().frame("date-picker-box"); 
+		       //driver.switchTo().frame(0);
 				
+				
+				       
+
+ // Step 2: Locate From and To date fields
+				        WebElement startdate = driver.findElement(By.id("start-date"));
+				        WebElement enddate = driver.findElement(By.id("end-date"));
+
+// Step 3: Clear and enter dates (MM/DD/YYYY)
+				        startdate.clear();
+				        startdate.sendKeys("03/10/2025");
+
+				        enddate.clear();
+				        enddate.sendKeys("03/10/2026");
+
+// Optional: press TAB or ENTER if needed
+				        driver.findElement(By.xpath("//button[@class='submit-btn']")).click();
+
+// Get values from input fields
+				        String stdt = startdate.getAttribute("value");
+				        String endt = enddate.getAttribute("value");
+				        WebElement resultmsg=driver.findElement(By.id("result"));
+				        String message = resultmsg.getText();
+
+// Print in console
+				        System.out.println("Start Date: " + stdt + " | End Date: " + endt);
+				        System.out.println("Result Message: " + message);
+				        
+	}
+}
