@@ -17,8 +17,8 @@ public class checkbox {
 		
 //Locate check box and click
 		List<WebElement>checkboxes=driver.findElements(By.xpath("//input[@type='checkbox']"));
-		
-		
+		WebElement checkbox = driver.findElement(By.id("sunday"));
+
 // Check all
 		for(WebElement cb : checkboxes) {
 		    if(!cb.isSelected()) {
